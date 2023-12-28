@@ -1,5 +1,6 @@
 import { createRequire } from 'module'
 import { defineConfig, type DefaultTheme } from 'vitepress'
+import * as zhCN from './locales/zh-CN'
 
 const require = createRequire(import.meta.url)
 const pkg = require('vitepress/package.json')
@@ -42,6 +43,40 @@ export default defineConfig({
     ['meta', { name: 'og:image', content: 'https://vitepress.dev/vitepress-og.jpg' }],
     ['script', { src: 'https://cdn.usefathom.com/script.js', 'data-site': 'AZBRSFGG', 'data-spa': 'auto', defer: '' }]
   ],
+
+  locales: {
+    root: {
+      lang: 'en-US',
+      label: 'English'
+    },
+    'zh-CN': {
+      label: '简体中文',
+      lang: 'zh-CN',
+      themeConfig: {
+        nav: zhCN.nav(),
+        sidebar: {
+          '/zh-CN/guide/': {
+            base: '/zh-CN/guide/',
+            items: zhCN.sidebarGuide()
+          },
+          '/zh-CN/reference/': {
+            base: '/zh-CN/reference/',
+            items: zhCN.sidebarReference()
+          }
+        },
+        outline: {
+          label: '快速导航'
+        },
+        sidebarMenuLabel: '目录',
+        langMenuLabel: '语言',
+        editLink: {
+          pattern:
+            'https://github.com/vuejs/vitepress/edit/main/docs/zh-CN/:path',
+          text: '在 GitHub 上编辑此页'
+        }
+      }
+    }
+  },
 
   themeConfig: {
     logo: { src: '/vitepress-logo-mini.svg', width: 24, height: 24 },
